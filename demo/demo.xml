@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        
+        <!-- Jenis -->
+        <record id='cats_cat_type1' model='cats.cat.type'>
+            <field name='name' type='char'>Persian</field>
+        </record>
+        <record id='cats_cat_type2' model='cats.cat.type'>
+            <field name='name' type='char'>Maine Coon</field>
+        </record>
+        <record id='cats_cat_type3' model='cats.cat.type'>
+            <field name='name' type='char'>British Shorthair</field>
+        </record>
+        
+        <!-- Kucing -->
+        <record id='cats_cat1' model='cats.cat'>
+            <field name='name' type='char'>Kucing 1</field>
+            <field name='color' type='char'>0</field>
+            <field name='type' ref='cats_cat_type1'/>
+        </record>
+        <record id='cats_cat2' model='cats.cat'>
+            <field name='name' type='char'>Kucing 2</field>
+            <field name='color' type='char'>1</field>
+            <field name='type' ref='cats_cat_type1'/>
+        </record>
+        <record id='cats_cat3' model='cats.cat'>
+            <field name='name' type='char'>Kucing 3</field>
+            <field name='color' type='char'>2</field>
+            <field name='type' ref='cats_cat_type2'/>
+        </record>
+        <record id='cats_cat4' model='cats.cat'>
+            <field name='name' type='char'>Kucing 4</field>
+            <field name='color' type='char'>3</field>
+            <field name='type' ref='cats_cat_type2'/>
+        </record>
+        <record id='cats_cat5' model='cats.cat'>
+            <field name='name' type='char'>Kucing 5</field>
+            <field name='color' type='char'>4</field>
+            <field name='type' ref='cats_cat_type3'/>
+        </record>
+
+    </data>
+</odoo>

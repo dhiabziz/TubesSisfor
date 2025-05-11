@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+cats_cat_manager,Cats Cat Manager,model_cats_cat,,1,1,1,1
+cats_cat_type_manager,Cats Cat Type Manager,model_cats_cat_type,,1,1,1,1
