@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_project_document_tree" model="ir.ui.view">
+            <field name="name">project.document.tree</field>
+            <field name="model">project.document</field>
+            <field name="arch" type="xml">
+                <tree string="Project Documents">
+                    <field name="name" string="Filename"/> <field name="original_file_name_upload" string="Original Name" optional="show"/>
+                    <field name="project_id"/>
+                    <field name="document_group_name" invisible="1"/> <field name="upload_date"/>
+                    <field name="create_uid" string="Uploaded By" optional="show"/>
+                    <field name="description" optional="hide"/>
+                    <field name="file_data" widget="binary" filename="name" string="Download"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_project_document_form" model="ir.ui.view">
+            <field name="name">project.document.form</field>
+            <field name="model">project.document</field>
+            <field name="arch" type="xml">
+                <form string="Project Document">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="project_id" options="{'no_create': True, 'no_open': True}"/>
+                                <field name="file_data" widget="binary" filename="name"/>
+                                <field name="name" string="Stored Filename" readonly="1" force_save="1" help="The final filename stored, potentially with a timestamp if it's a version."/>
+                                <field name="original_file_name_upload" readonly="1" force_save="1" help="The filename as originally uploaded by the user."/>
+                            </group>
+                            <group>
+                                <field name="upload_date" readonly="1"/>
+                                <field name="document_group_name" readonly="1" force_save="1"/>
+                            </group>
+                        </group>
+                        <group string="Details">
+                             <field name="description" placeholder="Add a description for this document..."/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_project_document_search" model="ir.ui.view">
+            <field name="name">project.document.search</field>
+            <field name="model">project.document</field>
+            <field name="arch" type="xml">
+                <search string="Search Project Documents">
+                    <field name="name" string="Filename"/>
+                    <field name="original_file_name_upload"/>
+                    <field name="project_id"/>
+                    <field name="document_group_name"/>
+                    <field name="description"/>
+                    <separator/>
+                    <filter string="My Documents" name="my_documents" domain="[('create_uid', '=', uid)]"/>
+                    <separator/>
+                    <group expand="0" string="Group By">
+                        <filter string="Project" name="group_by_project" context="{'group_by':'project_id'}"/>
+                        <filter string="Document Group (Folder)" name="group_by_document_group" context="{'group_by':'document_group_name'}"/>
+                        <filter string="Upload Date" name="group_by_upload_date" context="{'group_by':'upload_date'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_project_document" model="ir.actions.act_window">
+            <field name="name">Project Documents</field>
+            <field name="res_model">project.document</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_project_document_search"/>
+            <field name="context">{
+                'search_default_group_by_project': 1,
+                'search_default_group_by_document_group': 1
+            }</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No documents found. Upload your first project document!
+                </p><p>
+                    Manage all documents related to your projects here.
+                    You can upload new files, view existing ones, and see different versions grouped together.
+                </p>
+            </field>
+        </record>
+
+        <menuitem
+            id="menu_document_repository_root"
+            name="Document Repository"
+            sequence="90"
+            web_icon="document_repository,static/description/icon.png" /> <menuitem
+            id="menu_project_document"
+            name="Project Documents"
+            parent="menu_document_repository_root"
+            action="action_project_document"
+            sequence="10"/>
+
+        <record id="project_view_form_inherit_document_repository" model="ir.ui.view">
+            <field name="name">project.project.form.inherit.document</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project.edit_project"/>
+            <field name="arch" type="xml">
+                <div name="button_box" position="inside">
+                    <button class="oe_stat_button" type="action" name="%(action_project_document)d"
+                        context="{'search_default_project_id': active_id, 'default_project_id': active_id, 'search_default_group_by_document_group': 1}"
+                        icon="fa-files-o">
+                        <field string="Documents" name="document_count" widget="statinfo"/>
+                    </button>
+                </div>
+            </field>
+        </record>
+
+        </data>
+</odoo>
