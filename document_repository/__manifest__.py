@@ -11,14 +11,18 @@
         - If a document with the same name is uploaded to the same project,
           it creates a new version by appending a timestamp to the filename,
           grouping them visually.
+        - Includes granular access control for document management.
     """,
     'author': "Your Name/Company",
     'website': "https://www.yourcompany.com",
     'category': 'Project',
     'version': '17.0.1.0.0',
-    'depends': ['project'],  # Depends on the 'project' module
+    'depends': ['project', 'access_control'],  # Depends on the 'project' module
     'data': [
+        'security/security_groups.xml',
         'security/ir.model.access.csv',
+        'security/ir_rule.xml',
+        
         'views/project_document_views.xml',
     ],
     'installable': True,

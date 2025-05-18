@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_project_form_inherit" model="ir.ui.view">
+        <field name="name">project.form.inherit.access</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.view_project_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="access_ids" widget="one2many">
+                    <tree>
+                        <field name="user_id"/>
+                        <field name="role"/>
+                    </tree>
+                    <form>
+                        <group>
+                            <field name="user_id"/>
+                            <field name="role"/>
+                        </group>
+                    </form>
+                </field>
+            </xpath>
+        </field>
+    </record>
+</odoo>

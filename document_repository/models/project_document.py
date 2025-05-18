@@ -2,7 +2,7 @@
 import os
 from datetime import datetime
 from odoo import models, fields, api, _
-from odoo.exceptions import UserError
+from odoo.exceptions import UserError, AccessError
 
 class ProjectDocument(models.Model):
     _name = 'project.document'
@@ -37,6 +37,17 @@ class ProjectDocument(models.Model):
     )
     document_group_name = fields.Char('Document Group', compute='_compute_document_group', store=True)
 
+    def check_access_rights(self, operation, raise_exception=True):
+        if self.env.user.has_group('project.group_project_manager'):
+            return True
+        if operation == 'read' and self.env.user.has_group('document_repository.group_document_viewer'):
+            return True
+        if operation in ['write', 'create'] and self.env.user.has_group('document_repository.group_document_uploader'):
+            return True
+        if raise_exception:
+            raise AccessError(_("You don't have rights to %s this document.") % operation)
+        return False
+
     @api.depends('original_file_name_upload')
     def _compute_document_group(self):
         for record in self:
@@ -48,6 +59,8 @@ class ProjectDocument(models.Model):
 
     @api.model_create_multi
     def create(self, vals_list):
+        if not self.env.user.has_group('document_repository.group_document_uploader'):
+            raise AccessError(_("Only users with Document Uploader role can upload files."))
         records_to_create = []
         for vals in vals_list:
             original_filename = vals.get('name')
