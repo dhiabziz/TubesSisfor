@@ -2,3 +2,4 @@ id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_project_document_client,project.document.client,model_project_document,document_repository.group_document_client,1,0,0,0
 access_project_document_team,project.document.team,model_project_document,document_repository.group_document_team,1,1,1,0
 access_project_document_manager,project.document.manager,model_project_document,document_repository.group_document_manager,1,1,1,1
+access_project_user_access_manager,project.user.access.manager,model_project_user_access,document_repository.group_document_manager,1,1,1,1
