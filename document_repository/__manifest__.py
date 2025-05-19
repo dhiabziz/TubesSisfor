@@ -3,7 +3,7 @@
     'name': "Document Repository",
     'summary': """
         Upload, view, and download documents organized by projects,
-        with versioning for duplicate filenames.""",
+        with versioning for duplicate filenames and access control.""",
     'description': """
         This module allows users to manage project-specific documents.
         - Attach documents to projects.
@@ -11,21 +11,22 @@
         - If a document with the same name is uploaded to the same project,
           it creates a new version by appending a timestamp to the filename,
           grouping them visually.
-        - Includes granular access control for document management.
+        - Control access to documents with roles (client, team member, manager).
+        - Set specific permissions for users on each project.
     """,
     'author': "Your Name/Company",
     'website': "https://www.yourcompany.com",
     'category': 'Project',
     'version': '17.0.1.0.0',
-    'depends': ['project', 'access_control'],  # Depends on the 'project' module
+    'depends': ['base', 'project'],
     'data': [
-        'security/security_groups.xml',
+        'security/security.xml',
         'security/ir.model.access.csv',
-        'security/ir_rule.xml',
-        
+        'security/security_rules.xml',
         'views/project_document_views.xml',
+        'views/project_user_access_views.xml',
     ],
     'installable': True,
-    'application': True, # Set to True to make it appear as an App
-    'license': 'LGPL-3', # Or your preferred license
+    'application': True,
+    'license': 'LGPL-3',
 }

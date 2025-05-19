@@ -1,4 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_project_document_viewer,project.document.viewer,model_project_document,group_document_viewer,1,0,0,0
-access_project_document_uploader,project.document.uploader,model_project_document,group_document_uploader,1,1,1,0
-access_project_document_manager,project.document.manager,model_project_document,group_project_manager,1,1,1,1

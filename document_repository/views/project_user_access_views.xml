@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_project_user_access_tree" model="ir.ui.view">
+            <field name="name">project.user.access.tree</field>
+            <field name="model">project.user.access</field>
+            <field name="arch" type="xml">
+                <tree string="User Access Rights">
+                    <field name="user_id"/>
+                    <field name="project_id"/>
+                    <field name="role"/>
+                    <field name="read_access"/>
+                    <field name="write_access"/>
+                    <field name="create_access"/>
+                    <field name="delete_access"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_project_user_access_form" model="ir.ui.view">
+            <field name="name">project.user.access.form</field>
+            <field name="model">project.user.access</field>
+            <field name="arch" type="xml">
+                <form string="User Access Rights">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="user_id" options="{'no_create': True}"/>
+                                <field name="project_id" options="{'no_create': True}"/>
+                                <field name="role"/>
+                            </group>
+                            <group string="Specific Permissions">
+                                <field name="read_access"/>
+                                <field name="write_access"/>
+                                <field name="create_access"/>
+                                <field name="delete_access"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_project_user_access_search" model="ir.ui.view">
+            <field name="name">project.user.access.search</field>
+            <field name="model">project.user.access</field>
+            <field name="arch" type="xml">
+                <search string="Search Access Rights">
+                    <field name="user_id"/>
+                    <field name="project_id"/>
+                    <filter string="Client" name="role_client" domain="[('role', '=', 'client')]"/>
+                    <filter string="Team Member" name="role_team" domain="[('role', '=', 'team')]"/>
+                    <filter string="Manager" name="role_manager" domain="[('role', '=', 'manager')]"/>
+                    <separator/>
+                    <group expand="0" string="Group By">
+                        <filter string="Project" name="group_by_project" context="{'group_by':'project_id'}"/>
+                        <filter string="Role" name="group_by_role" context="{'group_by':'role'}"/>
+                        <filter string="User" name="group_by_user" context="{'group_by':'user_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_project_user_access" model="ir.actions.act_window">
+            <field name="name">User Access Rights</field>
+            <field name="res_model">project.user.access</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_project_user_access_search"/>
+            <field name="context">{'search_default_group_by_project': 1}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No user access rights defined yet!
+                </p><p>
+                    Define who can access documents in each project and with what permissions.
+                </p>
+            </field>
+        </record>
+
+        <menuitem
+            id="menu_project_user_access"
+            name="User Access Rights"
+            parent="menu_document_repository_root"
+            action="action_project_user_access"
+            sequence="20"/>
+
+        <record id="project_form_view_access_rights" model="ir.ui.view">
+            <field name="name">project.project.form.access.rights</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project.edit_project"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="inside">
+                    <page string="Document Access Rights" groups="document_repository.group_document_manager">
+                        <field name="user_access_ids" nolabel="1">
+                            <tree editable="bottom">
+                                <field name="user_id"/>
+                                <field name="role"/>
+                                <field name="read_access"/>
+                                <field name="write_access"/>
+                                <field name="create_access"/>
+                                <field name="delete_access"/>
+                            </tree>
+                        </field>
+                        <div class="mt-3">
+                            <p><strong>Roles:</strong></p>
+                            <ul>
+                                <li><strong>Client:</strong> Can only view documents</li>
+                                <li><strong>Team Member:</strong> Can view, edit and create documents</li>
+                                <li><strong>Manager:</strong> Full access including deletion</li>
+                            </ul>
+                            <p class="text-muted">Note: Specific permissions override the default role permissions</p>
+                        </div>
+                    </page>
+                </xpath>
+                <div name="button_box" position="inside">
+                    <button class="oe_stat_button" type="object" name="action_manage_user_access"
+                        groups="document_repository.group_document_manager"
+                        icon="fa-users">
+                        <div class="o_field_widget o_stat_info">
+                            <span class="o_stat_text">User Access</span>
+                        </div>
+                    </button>
+                </div>
+            </field>
+        </record>
+
+    </data>
+</odoo>
