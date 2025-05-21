@@ -1,0 +1,54 @@
+<odoo>
+    <menuitem id="menu_sidebar_root" name="Sidebar" sequence="1"/>
+
+
+    <record id="action_sidebar_project" model="ir.actions.act_window">
+        <field name="name">Dashboard Manajemen Proyek</field>
+        <field name="res_model">sidebar.item</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem id="menu_sidebar_dashboard"
+              name="Dashboard Manajemen Proyek"
+              parent="menu_sidebar_root"
+              action="action_sidebar_project"/>
+
+    <record id="action_sidebar_docs" model="ir.actions.act_window">
+        <field name="name">Dashboard Manajemen Dokumen</field>
+        <field name="res_model">sidebar.item</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem id="menu_sidebar_docs"
+              name="Dashboard Manajemen Dokumen"
+              parent="menu_sidebar_root"
+              action="action_sidebar_docs"/>
+
+    <record id="action_sidebar_account" model="ir.actions.act_window">
+        <field name="name">Dashboard Manajemen Akun</field>
+        <field name="res_model">sidebar.item</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem id="menu_sidebar_account"
+              name="Dashboard Manajemen Akun"
+              parent="menu_sidebar_root"
+              action="action_sidebar_account"/>
+
+    <record id="action_sidebar_user" model="ir.actions.act_window">
+        <field name="name">Button akun</field>
+        <field name="res_model">sidebar.item</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem id="menu_sidebar_user"
+              name="Button akun"
+              parent="menu_sidebar_root"
+              action="action_sidebar_user"/>
+
+    <record id="action_sidebar_logout" model="ir.actions.act_window">
+        <field name="name">Logout</field>
+        <field name="res_model">sidebar.item</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem id="menu_sidebar_logout"
+              name="Logout"
+              parent="menu_sidebar_root"
+              action="action_sidebar_logout"/>
+</odoo>

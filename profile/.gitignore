@@ -1,0 +1,3 @@
+*.bat
+.vscode
+__pycache__
