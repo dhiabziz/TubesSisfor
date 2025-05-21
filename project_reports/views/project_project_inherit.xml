@@ -1,0 +1,14 @@
+<odoo>
+  <data>
+    <record id="view_project_form_inherit_report" model="ir.ui.view">
+      <field name="name">project.project.form.inherit.report</field>
+      <field name="model">project.project</field>
+      <field name="inherit_id" ref="project.edit_project"/>
+      <field name="arch" type="xml">
+        <xpath expr="//header" position="inside">
+          <button name="action_open_report_wizard" type="object" string="Generate Laporan" class="btn-primary"/>
+        </xpath>
+      </field>
+    </record>
+  </data>
+</odoo>

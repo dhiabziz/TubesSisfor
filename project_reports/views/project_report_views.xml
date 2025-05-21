@@ -1,0 +1,43 @@
+<odoo>
+  <record id="view_project_report_tree" model="ir.ui.view">
+    <field name="name">project.report.tree</field>
+    <field name="model">project.report</field>
+    <field name="arch" type="xml">
+      <tree>
+        <field name="name"/>
+        <field name="project_id"/>
+        <field name="date_generated"/>
+        <field name="file_name"/>
+      </tree>
+    </field>
+  </record>
+
+  <record id="view_project_report_form" model="ir.ui.view">
+    <field name="name">project.report.form</field>
+    <field name="model">project.report</field>
+    <field name="arch" type="xml">
+      <form>
+        <sheet>
+          <group>
+            <field name="name"/>
+            <field name="project_id"/>
+            <field name="date_generated"/>
+            <field name="file_name"/>
+            <field name="report_file" filename="file_name"/>
+          </group>
+        </sheet>
+      </form>
+    </field>
+  </record>
+
+  <record id="action_project_report" model="ir.actions.act_window">
+    <field name="name">Daftar Laporan Proyek</field>
+    <field name="res_model">project.report</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+
+  <menuitem id="menu_project_report_root" 
+            name="Laporan Proyek" 
+            parent="project.menu_main_pm"
+            action="action_project_report"/>
+</odoo>
